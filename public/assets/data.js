@@ -13,13 +13,13 @@ window.GB_DEFAULTS = {
 
   brand: {
     name: 'グランブレス',
-    nameEn: 'Grand Bless',
+    nameEn: 'Grand Bress',
     service: '心と暮らしのサポート',
     catch: '「ちょっと困った」を、\n「ちょっと安心」に。',
     lead: '家事をお手伝いするだけじゃない。\n暮らしを整え、心に寄り添う。',
     area: '鹿児島県内',
     tel: '099-000-0000',
-    line: '@grandbless',
+    line: '@grandbress',
     hours: '9:00〜18:00（日・祝休み）',
     tagline: '心を育み、未来が変わる'
   },

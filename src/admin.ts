@@ -22,7 +22,7 @@ app.use('*', async (c, next) => {
   const auth = basicAuth({
     username: c.env.ADMIN_USER || 'admin',
     password: c.env.ADMIN_PASSWORD,
-    realm: 'Grand Bless Admin',
+    realm: 'Grand Bress Admin',
   });
   return auth(c, next);
 });
