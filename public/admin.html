@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>管理画面｜心と暮らしのサポート</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+  body { background: #F7F5F8; }
+  .admin { display: grid; grid-template-columns: 240px 1fr; min-height: 100vh; }
+  .side { background: #fff; border-right: 1px solid var(--line); padding: 20px 12px; position: sticky; top: 0; height: 100vh; overflow-y: auto; }
+  .side .logo { padding: 0 8px 20px; }
+  .side .who { font-size: 12px; color: var(--sub); padding: 0 8px 16px; border-bottom: 1px solid var(--line); margin-bottom: 12px; }
+  .side nav { display: grid; gap: 2px; }
+  .side nav a { display: flex; justify-content: space-between; align-items: center; text-decoration: none; color: var(--ink); padding: 10px 12px; border-radius: 10px; font-size: 15px; }
+  .side nav a:hover { background: var(--blush); }
+  .side nav a.active { background: var(--blush-2); color: var(--plum); font-weight: 700; }
+  .side nav .count { background: var(--accent); color: #fff; font-size: 11px; border-radius: 999px; padding: 0 8px; }
+  .side .view { margin: 20px 8px 0; display: block; text-align: center; }
+  .main { padding: 28px 32px 120px; max-width: 1080px; width: 100%; }
+  .main h1 { font-family: var(--serif); font-size: 26px; margin-bottom: 4px; }
+  .main .desc { color: var(--sub); font-size: 14px; margin-bottom: 24px; }
+  .panel { display: none; padding: 0; }
+  .panel.active { display: block; }
+  .box { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 22px; margin-bottom: 18px; }
+  .box h2 { font-size: 17px; margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .field { display: grid; gap: 6px; margin-bottom: 14px; }
+  .field > span { font-size: 13px; font-weight: 500; color: var(--sub); }
+  .row-edit { border: 1px solid var(--line); border-radius: 12px; padding: 16px; margin-bottom: 12px; background: #FCFBFD; }
+  .row-edit .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+  .row-edit .head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-weight: 700; color: var(--plum); }
+  .row-edit .tools { display: flex; gap: 6px; }
+  .icon-btn { border: 1px solid var(--line); background: #fff; border-radius: 8px; padding: 4px 10px; font-size: 13px; cursor: pointer; color: var(--sub); }
+  .icon-btn:hover { border-color: var(--accent); color: var(--plum); }
+  .icon-btn.danger:hover { border-color: var(--ng); color: var(--ng); }
+  .yen-input { position: relative; }
+  .yen-input input { padding-right: 34px; text-align: right; }
+  .yen-input::after { content: '円'; position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: var(--mute); font-size: 14px; }
+  .switch { display: inline-flex; align-items: center; gap: 10px; cursor: pointer; font-size: 15px; }
+  .switch input { accent-color: var(--accent); width: 20px; height: 20px; }
+  .status-pick { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 18px; }
+  .kpi { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 18px; }
+  .kpi .k { font-size: 13px; color: var(--sub); }
+  .kpi .v { font-family: var(--serif); font-size: 30px; font-weight: 700; color: var(--plum); line-height: 1.3; }
+  .kpi .v small { font-size: 14px; color: var(--sub); font-family: var(--sans); font-weight: 400; }
+  .range-row { display: grid; grid-template-columns: 1fr 160px; gap: 16px; align-items: center; margin-bottom: 14px; }
+  .range-row input[type=range] { accent-color: var(--accent); width: 100%; }
+  .range-row b { text-align: right; font-size: 18px; color: var(--plum); }
+  .rev { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 8px; }
+  .rev div { background: var(--blush); border-radius: 12px; padding: 14px; }
+  .rev .k { font-size: 12px; color: var(--sub); }
+  .rev .v { font-family: var(--serif); font-size: 24px; font-weight: 700; color: var(--plum); }
+  .inq { border: 1px solid var(--line); border-radius: 12px; padding: 16px; margin-bottom: 12px; background: #fff; }
+  .inq.new { border-left: 5px solid var(--accent); }
+  .inq .top { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; flex-wrap: wrap; }
+  .inq .name { font-weight: 700; font-size: 16px; }
+  .inq .meta { font-size: 13px; color: var(--sub); }
+  .inq .body { margin-top: 10px; font-size: 14px; white-space: pre-wrap; }
+  .inq .sim { margin-top: 8px; font-size: 13px; background: var(--blush); color: var(--plum); border-radius: 8px; padding: 8px 12px; }
+  .inq .tags { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .inq .tags span { font-size: 12px; background: var(--gray); border-radius: 999px; padding: 2px 10px; }
+  .inq select { width: auto; padding: 6px 10px; }
+  .empty { text-align: center; color: var(--mute); padding: 40px 0; }
+  .savebar { position: fixed; left: 240px; right: 0; bottom: 0; background: rgba(255,255,255,.97); border-top: 1px solid var(--line); padding: 12px 32px; display: flex; gap: 12px; align-items: center; justify-content: flex-end; z-index: 30; }
+  .savebar .msg { margin-right: auto; font-size: 14px; color: var(--sub); }
+  .savebar .msg.dirty { color: var(--warn); font-weight: 700; }
+  .savebar .msg.ok { color: var(--ok); font-weight: 700; }
+  .mobile-top { display: none; }
+  @media (max-width: 860px) {
+    .admin { grid-template-columns: 1fr; }
+    .side { position: static; height: auto; border-right: 0; border-bottom: 1px solid var(--line); padding: 12px; }
+    .side .logo, .side .who, .side .view { display: none; }
+    .side nav { display: flex; overflow-x: auto; gap: 6px; padding-bottom: 4px; }
+    .side nav a { white-space: nowrap; font-size: 14px; padding: 8px 12px; border: 1px solid var(--line); }
+    .mobile-top { display: flex; justify-content: space-between; align-items: center; padding: 0 4px 10px; }
+    .main { padding: 20px 16px 120px; }
+    .kpis, .rev { grid-template-columns: 1fr; }
+    .savebar { left: 0; padding: 10px 16px; }
+    .savebar .msg { font-size: 12px; }
+    .range-row { grid-template-columns: 1fr; gap: 4px; }
+    .range-row b { text-align: left; }
+  }
+</style>
+</head>
+<body>
+<div class="demo-bar" id="demoBar">DEMO｜管理画面のデモです。</div>
+<div class="admin">
+  <aside class="side">
+    <div class="logo"><b>Grand Bless</b><small>心と暮らしのサポート 管理</small></div>
+    <div class="who">ログイン中：有川 様（オーナー）</div>
+    <div class="mobile-top"><b class="serif">管理画面</b><a class="btn small ghost" href="index.html" target="_blank">サイトを見る</a></div>
+    <nav id="tabs">
+      <a href="#home" data-tab="home">ホーム</a>
+      <a href="#inquiries" data-tab="inquiries">お問い合わせ <span class="count" id="newCount" hidden>0</span></a>
+      <a href="#notice" data-tab="notice">お知らせ・受付状況</a>
+      <a href="#prices" data-tab="prices">料金・サポーター</a>
+      <a href="#plans" data-tab="plans">定期プラン</a>
+      <a href="#spots" data-tab="spots">単発メニュー</a>
+      <a href="#faq" data-tab="faq">よくある質問</a>
+      <a href="#basic" data-tab="basic">基本情報</a>
+      <a href="#data" data-tab="data">データ管理</a>
+    </nav>
+    <a class="btn ghost small view" href="index.html" target="_blank">サイトを見る ↗</a>
+  </aside>
+
+  <main class="main">
+    <!-- ホーム -->
+    <section class="panel" id="p-home">
+      <h1>おかえりなさい、有川さん</h1>
+      <p class="desc">よく使う操作と、事業の目安をまとめています。</p>
+      <div class="kpis">
+        <div class="kpi"><div class="k">新しいお問い合わせ</div><div class="v" id="kNew">0<small>件</small></div></div>
+        <div class="kpi"><div class="k">今月の受付状況</div><div class="v" id="kStatus" style="font-size:22px"></div></div>
+        <div class="kpi"><div class="k">看板プラン</div><div class="v" id="kPlan" style="font-size:22px"></div></div>
+      </div>
+      <div class="box">
+        <h2>月商の目安を試算する<span class="note">③収支試算の考え方をもとにした目安</span></h2>
+        <div class="range-row"><label>定期契約の世帯数<input type="range" id="rvHouse" min="0" max="100" value="30"></label><b id="rvHouseV"></b></div>
+        <div class="range-row"><label>定期の平均月額<input type="range" id="rvAvg" min="15000" max="45000" step="500" value="25000"></label><b id="rvAvgV"></b></div>
+        <div class="range-row"><label>スポット利用（件／月）<input type="range" id="rvSpot" min="0" max="80" value="20"></label><b id="rvSpotV"></b></div>
+        <div class="range-row"><label>スポット1件の平均単価<input type="range" id="rvSpotP" min="5000" max="20000" step="500" value="11000"></label><b id="rvSpotPV"></b></div>
+        <div class="rev">
+          <div><div class="k">月商</div><div class="v" id="rvSales"></div></div>
+          <div><div class="k">サポーターへのお支払い（約70%）</div><div class="v" id="rvPay"></div></div>
+          <div><div class="k">グランブレスの取り分（約30%）</div><div class="v" id="rvGross"></div></div>
+        </div>
+        <p class="note" style="margin-top:10px">取り分から、予約受付・集客・保険・研修・交通費などの運営費をまかないます。損益分岐の目安は月商120〜140万円（資料③）。</p>
+      </div>
+      <div class="box">
+        <h2>よく使う操作</h2>
+        <div style="display:flex;flex-wrap:wrap;gap:10px">
+          <a class="btn small" href="#inquiries">お問い合わせを確認</a>
+          <a class="btn small ghost" href="#notice">受付状況を変える</a>
+          <a class="btn small ghost" href="#prices">料金を変える</a>
+          <a class="btn small ghost" href="index.html" target="_blank">サイトを見る ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- お問い合わせ -->
+    <section class="panel" id="p-inquiries">
+      <h1>お問い合わせ</h1>
+      <p class="desc">サイトのフォームから届いたご相談です。対応状況を切り替えて管理できます。</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px">
+        <button class="btn small ghost" id="inqSample">サンプルを3件入れる</button>
+        <button class="btn small ghost" id="inqCsv">CSVで書き出す</button>
+      </div>
+      <div id="inqList"></div>
+    </section>
+
+    <!-- お知らせ・受付状況 -->
+    <section class="panel" id="p-notice">
+      <h1>お知らせ・受付状況</h1>
+      <p class="desc">サイトの一番上のお知らせと、トップに出る「今月のご予約」の表示を変えます。</p>
+      <div class="box">
+        <h2>今月のご予約状況</h2>
+        <div class="status-pick" id="statusPick"></div>
+        <label class="field" style="margin-top:14px"><span>ひとこと（任意）</span><input class="input" data-k="availability.note"></label>
+      </div>
+      <div class="box">
+        <h2>お知らせ</h2>
+        <label class="switch" style="margin-bottom:12px"><input type="checkbox" data-k="notice.show">サイトにお知らせを表示する</label>
+        <label class="field"><span>お知らせの文章</span><textarea class="input" rows="2" data-k="notice.text"></textarea></label>
+      </div>
+    </section>
+
+    <!-- 料金・サポーター -->
+    <section class="panel" id="p-prices">
+      <h1>料金・サポーター</h1>
+      <p class="desc">料金シミュレーションとサポーター紹介に使われる金額です（税込）。</p>
+      <div class="box"><h2>サポーターのランクと1時間の料金</h2><div id="ed-ranks"></div></div>
+      <div class="box">
+        <h2>ご利用時間のルール</h2>
+        <div class="row-edit"><div class="grid">
+          <label class="field"><span>最低時間（時間）</span><input class="input" type="number" step="0.5" min="0.5" data-k="rules.minHours" data-num></label>
+          <label class="field"><span>最長時間（時間）</span><input class="input" type="number" step="0.5" min="1" data-k="rules.maxHours" data-num></label>
+          <label class="field"><span>料金の注記</span><input class="input" data-k="rules.taxNote"></label>
+        </div></div>
+      </div>
+      <div class="box"><h2>オプション（1回ごと）</h2><div id="ed-options"></div></div>
+      <div class="box">
+        <h2>心理カウンセリング・福利厚生</h2>
+        <div class="row-edit"><div class="grid">
+          <label class="field"><span>カウンセリングの名称</span><input class="input" data-k="counseling.name"></label>
+          <label class="field"><span>カウンセリング料金</span><span class="yen-input"><input class="input" type="number" step="100" data-k="counseling.price" data-num></span></label>
+          <label class="field"><span>福利厚生補助（月あたり）</span><span class="yen-input"><input class="input" type="number" step="100" data-k="corporate.subsidy" data-num></span></label>
+        </div></div>
+      </div>
+      <div class="box"><h2>交通費（1回あたり・空欄＝要相談）</h2><div id="ed-transport"></div></div>
+    </section>
+
+    <!-- 定期プラン -->
+    <section class="panel" id="p-plans">
+      <h1>定期プラン</h1>
+      <p class="desc">プランの追加・削除・並べ替えができます。「内容」は1行に1項目です。</p>
+      <div id="ed-plans"></div>
+    </section>
+
+    <!-- 単発メニュー -->
+    <section class="panel" id="p-spots">
+      <h1>単発メニュー</h1>
+      <p class="desc">「単発でも頼めるメニュー」に表示されます。</p>
+      <div id="ed-spots"></div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="panel" id="p-faq">
+      <h1>よくある質問</h1>
+      <p class="desc">お客様からよく聞かれることを追加しておくと、問い合わせ対応が楽になります。</p>
+      <div id="ed-faqs"></div>
+    </section>
+
+    <!-- 基本情報 -->
+    <section class="panel" id="p-basic">
+      <h1>基本情報</h1>
+      <p class="desc">キャッチコピーや連絡先など、サイト全体に表示される情報です。</p>
+      <div class="box">
+        <label class="field"><span>サービス名</span><input class="input" data-k="brand.service"></label>
+        <label class="field"><span>キャッチコピー（改行できます）</span><textarea class="input" rows="2" data-k="brand.catch"></textarea></label>
+        <label class="field"><span>リード文（改行できます）</span><textarea class="input" rows="2" data-k="brand.lead"></textarea></label>
+        <div class="row-edit"><div class="grid">
+          <label class="field"><span>電話番号</span><input class="input" data-k="brand.tel"></label>
+          <label class="field"><span>LINE ID</span><input class="input" data-k="brand.line"></label>
+          <label class="field"><span>受付時間</span><input class="input" data-k="brand.hours"></label>
+          <label class="field"><span>対応エリア</span><input class="input" data-k="brand.area"></label>
+        </div></div>
+      </div>
+    </section>
+
+    <!-- データ管理 -->
+    <section class="panel" id="p-data">
+      <h1>データ管理</h1>
+      <p class="desc">設定のバックアップと復元ができます。</p>
+      <div class="box">
+        <h2>バックアップ</h2>
+        <p class="note" style="margin-bottom:12px">今の設定をファイルに保存します。別のパソコンへ移すときにも使えます。</p>
+        <button class="btn small" id="exportBtn">設定をファイルに書き出す</button>
+      </div>
+      <div class="box">
+        <h2>復元</h2>
+        <p class="note" style="margin-bottom:12px">書き出したファイルを読み込みます。</p>
+        <input type="file" id="importFile" accept="application/json,.json">
+      </div>
+      <div class="box">
+        <h2>初期状態に戻す</h2>
+        <p class="note" style="margin-bottom:12px">料金や文章を、最初のご提案の内容に戻します（お問い合わせは消えません）。</p>
+        <button class="btn small ghost" id="resetBtn">初期状態に戻す</button>
+        <span class="note" id="resetConfirm" hidden>もう一度押すと戻します</span>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="savebar">
+  <span class="msg" id="saveMsg">変更はありません</span>
+  <button class="btn ghost small" id="revertBtn">元に戻す</button>
+  <button class="btn small" id="saveBtn">変更を保存</button>
+</div>
+
+<script src="assets/data.js"></script>
+<script src="assets/store.js"></script>
+<script src="assets/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+{
+  // ============================================================
+  // グランブレス「心と暮らしのサポート」デモ — お客様向けサイト
+  // Cloudflare Workers（静的アセット＋Hono API）。GitHub 連携（Workers Builds）でデプロイ。
+  //
+  // ⚠️ アカウント固定：OFFICE PLATA（a-sasahala@officeplata.com / d945eddc1446103b3696aa537e581563）
+  //    手動デプロイ時は direnv（.envrc）で CLOUDFLARE_ACCOUNT_ID も一致させること。
+  //
+  // 正規URLは docs/urls.md を参照（勝手に変えない）。
+  // 管理画面は wrangler.admin.jsonc（grand-bless-admin）。同じ D1 を共有する。
+  // ============================================================
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "grand-bless",
+  "main": "src/site.ts",
+  "compatibility_date": "2026-10-01",
+  "account_id": "d945eddc1446103b3696aa537e581563",
+  "observability": { "enabled": true },
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    // API と管理画面のパスだけ Worker を通す（管理画面はこのサイトでは 404）
+    "run_worker_first": ["/api/*", "/admin", "/admin.html", "/assets/admin.js"]
+  },
+  "d1_databases": [
+    { "binding": "DB", "database_name": "grand-bless-db", "database_id": "43421069-1514-48a1-b0d1-f6155f90876f" }
+  ],
+  "vars": {
+    "ADMIN_URL": "https://grand-bless-admin.a-sasahala.workers.dev"
+  }
+}

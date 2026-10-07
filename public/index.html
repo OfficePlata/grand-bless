@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>心と暮らしのサポート｜グランブレス</title>
+<meta name="description" content="鹿児島県内の家事手伝い＋傾聴サービス。家事をお手伝いするだけじゃない。暮らしを整え、心に寄り添う。">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<div class="demo-bar">DEMO｜ご提案用のデモサイトです。料金・内容は検討中の案です。<a href="admin.html">管理画面を見る →</a></div>
+<div class="notice" id="notice" hidden></div>
+
+<header class="header">
+  <div class="wrap">
+    <a class="logo" href="#top"><b>Grand Bless</b><small data-bind="brand.service">心と暮らしのサポート</small></a>
+    <button class="menu-btn" id="menuBtn" aria-label="メニューを開く" aria-expanded="false"><span></span><span></span><span></span></button>
+    <nav class="nav" id="nav">
+      <a href="#service">サービス</a>
+      <a href="#usecase">活用イメージ</a>
+      <a href="#simulator">料金シミュレーション</a>
+      <a href="#plans">プラン</a>
+      <a href="#flow">ご利用の流れ</a>
+      <a href="#faq">よくある質問</a>
+      <a class="btn small" href="#contact">無料で相談する</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ヒーロー -->
+  <div class="hero">
+    <div class="wrap">
+      <p class="eyebrow"><span data-bind="brand.name">グランブレス</span>　｜　<span data-bind="brand.area">鹿児島県内</span>の家事手伝い＋傾聴サービス</p>
+      <h1 data-bind-html="brand.catch"></h1>
+      <div class="bar"></div>
+      <p class="lead" data-bind-html="brand.lead"></p>
+      <div class="cta">
+        <a class="btn" href="#simulator">料金をシミュレーションする</a>
+        <a class="btn ghost" href="#usecase">わが家での使い方を見る</a>
+      </div>
+      <div class="status" id="heroStatus"></div>
+    </div>
+  </div>
+
+  <!-- サービス -->
+  <section id="service" class="tint">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="en">Service</div>
+        <h2>暮らしと心を、まとめてお手伝い</h2>
+        <p>心理・傾聴を学んだスタッフが、日々の家事から暮らしの困りごとまでお手伝いします。</p>
+      </div>
+      <div class="pillars">
+        <div class="pillar">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg></div>
+          <h3>家事サポート</h3>
+          <ul><li>掃除・洗濯・アイロン</li><li>料理・つくりおき</li><li>買い物・日用品の補充</li></ul>
+        </div>
+        <div class="pillar">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V12"/><path d="M12 12c0-4 3-7 7-7 0 4-3 7-7 7z"/><path d="M12 15c0-3-2.5-5.5-6-5.5 0 3 2.5 5.5 6 5.5z"/></svg></div>
+          <h3>暮らしサポート</h3>
+          <ul><li>整理・片付け</li><li>墓掃除・庭の草取り</li><li>簡単なDIY・外出の付き添い</li></ul>
+        </div>
+        <div class="pillar heart">
+          <span class="tag">グランブレスならでは</span>
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg></div>
+          <h3>心のサポート</h3>
+          <ul><li>家事をしながら、お話を聴く</li><li>子育て・家族・仕事の悩み</li><li>必要なときは専門のカウンセリングへ</li></ul>
+        </div>
+      </div>
+      <div class="diff">
+        <div class="col"><h4>一般的な家事代行</h4><p>2時間で、掃除と洗濯をします。</p></div>
+        <div class="arrow">→</div>
+        <div class="col gb"><h4>グランブレス</h4><p>2時間で、ご家庭の困りごとをまとめてお手伝いします。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 活用イメージ -->
+  <section id="usecase">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="en">Use case</div>
+        <h2>あなたのご家庭なら、こう使えます</h2>
+        <p>近いものを選ぶと、訪問の2時間の過ごし方とおすすめのプランが表示されます。</p>
+      </div>
+      <div class="persona-tabs" role="tablist" id="personaTabs"></div>
+      <div id="personaBody"></div>
+    </div>
+  </section>
+
+  <!-- 料金シミュレーション -->
+  <section id="simulator" class="tint">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="en">Simulation</div>
+        <h2>料金シミュレーション</h2>
+        <p>担当者・時間・回数を選ぶと、1回あたり・月あたりの目安がすぐに分かります。</p>
+      </div>
+      <div class="sim">
+        <form class="card" id="simForm" onsubmit="return false">
+          <div class="step">
+            <h3><span class="num">1</span>担当するサポーターを選ぶ</h3>
+            <div class="rank-grid" id="simRanks"></div>
+          </div>
+          <div class="step">
+            <h3><span class="num">2</span>1回あたりの時間</h3>
+            <div class="stepper">
+              <button type="button" id="hMinus" aria-label="30分減らす">−</button>
+              <output id="hOut">2時間</output>
+              <button type="button" id="hPlus" aria-label="30分増やす">＋</button>
+            </div>
+            <p class="note" id="hNote" style="margin-top:8px"></p>
+          </div>
+          <div class="step">
+            <h3><span class="num">3</span>ご利用の頻度</h3>
+            <div class="seg" id="simFreq"></div>
+          </div>
+          <div class="step">
+            <h3><span class="num">4</span>オプション</h3>
+            <div class="checks" id="simOpts"></div>
+          </div>
+          <div class="step" style="margin-bottom:0">
+            <h3><span class="num">5</span>お住まいの地域</h3>
+            <select class="input" id="simArea"></select>
+          </div>
+        </form>
+
+        <aside class="result" aria-live="polite">
+          <div class="label" id="rLabel">月額の目安</div>
+          <div class="total" id="rTotal">0<small>円</small></div>
+          <div class="per" id="rPer"></div>
+          <ul class="breakdown" id="rBreak"></ul>
+          <div class="hint" id="rHint" hidden></div>
+          <button type="button" class="btn" id="rConsult">この内容で相談する</button>
+          <p class="note" style="margin-top:10px" data-bind="rules.taxNote"></p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- プラン -->
+  <section id="plans">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="en">Plan</div>
+        <h2>定期プラン</h2>
+        <p>毎回同じ担当者がうかがう、続けやすい月額プランです。</p>
+      </div>
+      <div class="plans" id="plansGrid"></div>
+
+      <h3 class="sub-head">単発でも頼めるメニュー</h3>
+      <p class="note">「今回だけ」「季節ごとに」のご依頼も歓迎です。</p>
+      <div class="spots" id="spotsGrid"></div>
+    </div>
+  </section>
+
+  <!-- サポーター -->
+  <section id="supporters" class="tint">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="en">Supporter</div>
+        <h2>うかがうのは、心理を学んだサポーターです</h2>
+        <p>資格や経験に応じた4つのサポーター。ご希望やご相談内容に合わせてお選びいただけます。</p>
+      </div>
+      <div class="ranks" id="ranksGrid"></div>
+    </div>
+  </section>
+
+  <!-- 流れ・安心 -->
+  <section id="flow">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="en">Flow</div>
+        <h2>ご利用の流れ</h2>
+      </div>
+      <ol class="flow">
+        <li><b>ご相談</b><small>LINE・お電話・フォームから</small></li>
+        <li><b>ヒアリング</b><small>お困りごとやご家族の状況をうかがいます</small></li>
+        <li><b>ご提案</b><small>担当者とプラン・お見積もり</small></li>
+        <li><b>ご予約</b><small>日時と担当者が決まります</small></li>
+        <li><b>ご訪問</b><small>家事＋必要に応じてお話を聴きます</small></li>
+        <li><b>終了報告</b><small>作業内容をご報告（ご家族へも可）</small></li>
+      </ol>
+
+      <div class="safety">
+        <div class="item"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></div><div><b>担当者固定制</b><p>定期プランは原則同じ担当者。お宅のことを覚えた人がうかがいます。</p></div></div>
+        <div class="item"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2z"/><path d="M8 7h6M8 11h6"/></svg></div><div><b>グランブレス独自の研修</b><p>傾聴・接遇・守秘義務・高齢者や子どもへの対応・緊急時対応を学んだスタッフです。</p></div></div>
+        <div class="item"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></div><div><b>損害賠償保険に加入</b><p>万一の物損や鍵の紛失にも備えています。</p></div></div>
+        <div class="item"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div><div><b>守秘義務の徹底</b><p>お聴きしたお話やお宅のことは、外に漏らしません。</p></div></div>
+        <div class="item"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg></div><div><b>心理カウンセラーがバックアップ</b><p>より専門的な相談が必要なときは、グランブレスのカウンセリングへ。</p></div></div>
+        <div class="item"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14l-2 2a3 3 0 0 1-4-4l3-3a3 3 0 0 1 4 0"/><path d="M14 10l2-2a3 3 0 0 1 4 4l-3 3a3 3 0 0 1-4 0"/></svg></div><div><b>専門機関へおつなぎ</b><p>介護・医療など専門資格が必要なことは、適切な窓口へおつなぎします。</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="tint">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="en">FAQ</div>
+        <h2>よくあるご質問</h2>
+      </div>
+      <div class="card faq" id="faqList"></div>
+    </div>
+  </section>
+
+  <!-- お問い合わせ -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="en">Contact</div>
+        <h2>まずはお気軽にご相談ください</h2>
+        <p>「こんなことも頼める？」というご相談だけでも大丈夫です。</p>
+      </div>
+      <div class="contact">
+        <div class="info">
+          <p class="note">お電話</p>
+          <p class="big" data-bind="brand.tel"></p>
+          <p class="note" data-bind="brand.hours"></p>
+          <p class="note" style="margin-top:20px">LINE公式アカウント</p>
+          <p class="big" data-bind="brand.line"></p>
+          <a class="btn line" href="#contact" style="margin-top:8px">LINEで相談する</a>
+          <p class="note" style="margin-top:20px">対応エリア：<span data-bind="brand.area"></span></p>
+        </div>
+        <div class="card" id="formCard">
+          <form class="form" id="contactForm" style="position:relative">
+            <div class="two">
+              <label><span>お名前<em>必須</em></span><input class="input" name="name" required autocomplete="name"></label>
+              <label><span>電話番号またはメール<em>必須</em></span><input class="input" name="contact" required></label>
+            </div>
+            <label><span>お住まいの地域</span><input class="input" name="area" placeholder="例：鹿児島市 紫原"></label>
+            <div>
+              <span style="display:block;font-size:14px;font-weight:500;margin-bottom:6px">ご希望のサポート</span>
+              <div class="chips" id="needChips"></div>
+            </div>
+            <label><span>ご希望の日時</span><input class="input" name="date" placeholder="例：平日の午前中、10月中旬ごろ"></label>
+            <label><span>ご相談内容</span><textarea class="input" name="message" rows="5" placeholder="ご家族の状況や、お困りごとをご自由にお書きください。"></textarea></label>
+            <input type="hidden" name="sim">
+            <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px">
+            <button class="btn" type="submit">この内容で送信する</button>
+            <p class="note">※デモサイトです。送信内容は管理画面の「お問い合わせ」に届きます。</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="logo"><b>Grand Bless</b><small>グランブレス｜心と暮らしのサポート</small></div>
+    <p class="tag" data-bind="brand.tagline"></p>
+    <p class="copy">© Grand Bless　｜　このサイトはご提案用のデモです。<a href="admin.html">管理画面</a></p>
+  </div>
+</footer>
+
+<div class="float-cta">
+  <a class="btn ghost" href="#simulator">料金を試算</a>
+  <a class="btn line" href="#contact">LINEで相談</a>
+</div>
+
+<script src="assets/data.js"></script>
+<script src="assets/store.js"></script>
+<script src="assets/site.js"></script>
+</body>
+</html>

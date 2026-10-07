@@ -1,0 +1,28 @@
+{
+  // ============================================================
+  // グランブレス「心と暮らしのサポート」デモ — 管理画面（有川さん用）
+  // 全ページ Basic 認証。パスワードは secret（ADMIN_PASSWORD）で投入する。
+  //   npx wrangler secret put ADMIN_PASSWORD -c wrangler.admin.jsonc
+  //
+  // ⚠️ アカウント固定：OFFICE PLATA（d945eddc1446103b3696aa537e581563）
+  // 正規URLは docs/urls.md を参照（勝手に変えない）。
+  // ============================================================
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "grand-bless-admin",
+  "main": "src/admin.ts",
+  "compatibility_date": "2026-10-01",
+  "account_id": "d945eddc1446103b3696aa537e581563",
+  "observability": { "enabled": true },
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    "run_worker_first": true
+  },
+  "d1_databases": [
+    { "binding": "DB", "database_name": "grand-bless-db", "database_id": "43421069-1514-48a1-b0d1-f6155f90876f" }
+  ],
+  "vars": {
+    "ADMIN_USER": "arikawa",
+    "SITE_URL": "https://grand-bless.a-sasahala.workers.dev"
+  }
+}
