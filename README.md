@@ -36,6 +36,8 @@ GitHub の `main` へ push すると、Cloudflare Workers Builds が2つの Work
 
 Cloudflare アカウントは OFFICE PLATA（`d945eddc1446103b3696aa537e581563`）に固定しています。
 
+> 管理用 Worker のダッシュボードに「wrangler.jsonc の name を grand-bless-admin に」と出ますが、管理用は `wrangler.admin.jsonc` でデプロイしているので変更不要です。同じ趣旨の自動PRが来ても **マージしないでください**（お客様サイトの名前が変わってしまいます）。
+
 ### 管理画面のパスワード
 
 ```
